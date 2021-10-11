@@ -5,7 +5,6 @@ import com.example.microservices_userservice.dto.GetUserResponse;
 import com.example.microservices_userservice.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserMapper {
 
-  private final PasswordEncoder passwordEncoder;
+//  private final PasswordEncoder passwordEncoder;
 
   public final User createUserRequestToUser(CreateUserRequest userRequest) {
 
@@ -24,7 +23,7 @@ public class UserMapper {
             .firstName(userRequest.getFirstName())
             .lastName(userRequest.getLastName())
             .email(userRequest.getEmail())
-            .password(passwordEncoder.encode(userRequest.getPassword()))
+            .password(userRequest.getPassword())
             .build();
 
     return user;

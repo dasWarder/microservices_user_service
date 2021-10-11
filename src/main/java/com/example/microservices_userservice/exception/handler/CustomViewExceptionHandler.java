@@ -26,7 +26,7 @@ public class CustomViewExceptionHandler {
 
     ResponseExceptionMessage response =
         ResponseExceptionMessage.builder()
-            .className(e.getClass().getSimpleName())
+            .className(e.getCause().getClass().getSimpleName())
             .message(e.getCause().getMessage())
             .build();
 
