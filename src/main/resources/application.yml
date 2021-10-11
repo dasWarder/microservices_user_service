@@ -1,6 +1,8 @@
 server:
   port: 0
 spring:
+  application:
+    name: users-ws
   datasource:
     username: sa
     password:
@@ -14,3 +16,8 @@ spring:
       ddl-auto: create
 uri:
   base: http://localhost
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka
