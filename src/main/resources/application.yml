@@ -16,6 +16,7 @@ spring:
       ddl-auto: create
 uri:
   base: http://localhost
+  gateway_ip: 192.168.56.1
 
 eureka:
   client:
