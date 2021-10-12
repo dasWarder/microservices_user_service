@@ -5,7 +5,11 @@ import com.example.microservices_userservice.exception.UserNotFoundException;
 import com.example.microservices_userservice.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Slf4j
 @Service
@@ -67,5 +71,25 @@ public class UserServiceImpl implements UserService {
 
     log.info("Delete the user by email = {}", email);
     userRepository.deleteUserByEmail(email);
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+    try {
+      User userByEmail = this.getUserByEmail(email);
+
+      return new org.springframework.security.core.userdetails.User(
+          userByEmail.getEmail(),
+          userByEmail.getPassword(),
+          true,
+          true,
+          true,
+          true,
+          new ArrayList<>());
+    } catch (UserNotFoundException e) {
+      throw new UsernameNotFoundException(
+          String.format("The user with email = %s not found", email));
+    }
   }
 }
