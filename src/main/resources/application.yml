@@ -14,9 +14,13 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: create
+  h2:
+    console:
+      enabled: true
 uri:
   base: http://localhost
   gateway_ip: 192.168.56.1
+  login: /users/login
 
 eureka:
   client:
@@ -24,3 +28,7 @@ eureka:
       defaultZone: http://localhost:9000/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+token:
+  expirationTime: 864000000
+  secret: ${JWS_SECRET}

@@ -25,6 +25,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Value("${uri.gateway_ip}")
   private String gatewayIp;
 
+  @Value("${token.secret}")
+  private String secret;
+
+  @Value("${uri.login}")
+  private String loginPath;
+
+  @Value("${token.expirationTime}")
+  private Long expirationDate;
+
   private final UserService userService;
 
   @Bean
@@ -35,15 +44,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
 
-    http.csrf().disable().authorizeRequests().antMatchers("/**").hasIpAddress(gatewayIp)
-    .and()
-    .addFilter(getAuthenticationFilter());
+    http.csrf()
+        .disable()
+        .authorizeRequests()
+        .antMatchers("/**")
+        .hasIpAddress(gatewayIp)
+        .and()
+        .addFilter(getAuthenticationFilter())
+        .headers()
+        .frameOptions();
   }
 
   private Filter getAuthenticationFilter() throws Exception {
 
-    AuthenticationFilter filter = new AuthenticationFilter();
-    filter.setAuthenticationManager(authenticationManager());
+    AuthenticationFilter filter =
+        new AuthenticationFilter(userService, authenticationManager(), secret, expirationDate);
+    filter.setFilterProcessesUrl(loginPath);
 
     return filter;
   }

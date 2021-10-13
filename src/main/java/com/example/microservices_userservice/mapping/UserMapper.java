@@ -27,6 +27,8 @@ public class UserMapper {
             .password(passwordEncoder.encode(userRequest.getPassword()))
             .build();
 
+    log.info("PASSWORD ENCRYPTED: {}", user.getPassword());
+
     return user;
   }
 

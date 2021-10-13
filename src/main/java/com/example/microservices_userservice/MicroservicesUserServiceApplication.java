@@ -26,7 +26,7 @@ public class MicroservicesUserServiceApplication implements CommandLineRunner {
                 .firstName("Alex")
                 .lastName("Mayers")
                 .email("alex@gmail.com")
-                .password("12345")
+                .password("$2a$10$wkuk6zvVwZpKJRczy9rqo.MRtGKwLyRmeCRNiQYo4Ap8yPpFgPVOG")
                 .build();
 
         userService.createUser(user);
