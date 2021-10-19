@@ -85,8 +85,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
       Token responseToken = new Token(token, userDetails.getEmail(), date);
       response.addHeader("token", token);
       response.addHeader("email", email);
-//      response.setContentType(new String("APPLICATION_JSON"));
-//      response.getWriter().write(objectMapper.writeValueAsString(responseToken));
+      response.setContentType(new String("APPLICATION_JSON"));
+      response.getWriter().write(objectMapper.writeValueAsString(responseToken));
 
     } catch (UserNotFoundException e) {
       log.error(
